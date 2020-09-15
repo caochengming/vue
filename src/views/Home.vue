@@ -11,6 +11,7 @@
         <el-button slot="append" @click="sumbitInfo">提交</el-button>
       </el-input>
     </div>
+    <div @click="handleDestroy">销毁</div>
   </div>
 </template>
 
@@ -23,7 +24,7 @@ export default {
   name: "Home",
   data() {
     return {
-      info:''
+      info: "",
     };
   },
   computed: {
@@ -37,11 +38,41 @@ export default {
   components: {
     HelloWorld,
   },
+
+  beforeCreate() {
+    this.compName = "single";
+    console.log(`--${this.compName}--beforeCreate`);
+  },
+  created() {
+    console.log(`--${this.compName}--created`);
+  },
+  beforeMount() {
+    console.log(`--${this.compName}--beforeMount`);
+  },
   mounted() {
-    // this.number = this.$store.dispatch('User/changeCound')
-    this.info = this.$store.state.User.title
+    this.info = this.$store.state.User.title;
+    console.log(`--${this.compName}--mounted`);
+    var ninjia = new this.ninja()
+    const ninjia2 = new ninjia.constructor()
+    console.log(ninjia)
+    console.log(ninjia2 != ninjia)
+  },
+  beforeUpdate() {
+    console.log(`--${this.compName}--beforeUpdate`);
+  },
+  updated() {
+    console.log(`--${this.compName}--updated`);
+  },
+  beforeDestroy() {
+    console.log(`--${this.compName}--beforeDestroy`);
+  },
+  destroyed() {
+    console.log(`--${this.compName}--destroyed`);
   },
   methods: {
+    handleDestroy() {
+      this.$destroy();
+    },
     jianFn() {
       this.$store.dispatch("User/JianCound");
     },
@@ -50,6 +81,9 @@ export default {
     },
     sumbitInfo() {
       this.$store.dispatch("User/changTitle", this.info);
+    },
+    ninja(){
+
     },
   },
 };

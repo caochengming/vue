@@ -1,5 +1,3 @@
-
-
 const state = {
     cound: 5,
     title: ''
